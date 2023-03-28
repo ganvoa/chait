@@ -22,7 +22,7 @@ func main() {
 
 	if apiKey == "" {
 		ml.Error(errors.New("must set env variable OPENAI_API_KEY"), "error reading api key")
-		return
+		os.Exit(1)
 	}
 
 	var configFile string
@@ -31,21 +31,21 @@ func main() {
 
 	if configFile == "" {
 		ml.Error(errors.New("must specify a config file"), "error reading config file")
-		return
+		os.Exit(1)
 	}
 
 	handle, err := os.Open(configFile)
 
 	if err != nil {
 		ml.Error(err, "error reading config file")
-		return
+		os.Exit(1)
 	}
 	defer handle.Close()
 
 	config, err := internal.NewConfig(handle)
 	if err != nil {
 		ml.Error(err, "error parsing config")
-		return
+		os.Exit(1)
 	}
 
 	p1 := internal.NewAiParticipant("U1", config.Chait.Rol1, apiKey, l.WithName("U1"))
@@ -55,14 +55,14 @@ func main() {
 	cr, err := internal.NewChatRoom(config.Chait.Replies, p1, p2)
 	if err != nil {
 		ml.Error(err, "error initializing chat room")
-		return
+		os.Exit(1)
 	}
 
 	ml.Info("start conversation")
 	err = cr.StartConversation()
 	if err != nil {
 		ml.Error(err, "error calling StartConversation")
-		return
+		os.Exit(1)
 	}
 
 	ml.Info("finished conversation")
@@ -71,5 +71,6 @@ func main() {
 	err = tr.Render()
 	if err != nil {
 		ml.Error(err, "error rendering conversation")
+		os.Exit(1)
 	}
 }
