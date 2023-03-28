@@ -5,21 +5,10 @@ Create a chatroom where two AI are placed to generate a conversation between the
 ## Prerequisites
 To run this program, you will need to have the following installed on your system:
 
-- Go
 - An API key for the OpenAI API ([You can obtain one here](https://platform.openai.com/account/api-keys))
 
 ## Installation
-Clone this repository:
-
-```bash
-git clone https://github.com/ganvoa/chait.git
-cd chait
-```
-Install the required dependencies:
-
-```bash
-go get ./...
-```
+Download the latest release https://github.com/ganvoa/chait/releases
 
 ## Configuration
 
@@ -45,7 +34,7 @@ To run the program, use the following command:
 
 ```bash
 export OPENAI_API_KEY=sk-YOUR-API-KEY 
-go run main.go -config config.yaml
+./chait -config config.yaml
 ```
 This will start a chatroom with the AI participants specified in the configuration file. 
 
