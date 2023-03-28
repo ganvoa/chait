@@ -26,3 +26,5 @@ jobs:
         goversion: "1.19"
         project_path: "./cmd/"
         binary_name: "chait"
+        retry: 10
+        overwrite: true
