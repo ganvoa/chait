@@ -35,7 +35,7 @@ func NewChatRoom(maxMessages int, firstParticipant ChatParticipant, secondPartic
 	}, nil
 }
 
-func (cr *ChatRoom) Talk() error {
+func (cr *ChatRoom) StartConversation() error {
 	cr.MessageCount = 0
 
 	var scm *ChatMessage

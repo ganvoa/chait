@@ -65,7 +65,7 @@ func Test_CreateChatRoom(t *testing.T) {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
-		err = cr.Talk()
+		err = cr.StartConversation()
 		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}

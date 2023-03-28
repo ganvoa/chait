@@ -58,10 +58,10 @@ func main() {
 		return
 	}
 
-	ml.Info("start talk")
-	err = cr.Talk()
+	ml.Info("start conversation")
+	err = cr.StartConversation()
 	if err != nil {
-		ml.Error(err, "error calling talk")
+		ml.Error(err, "error calling StartConversation")
 		return
 	}
 
