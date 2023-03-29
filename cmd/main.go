@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/ganvoa/chait/internal"
 	"github.com/ganvoa/chait/pkg/logger"
@@ -26,12 +27,35 @@ func main() {
 	}
 
 	var configFile string
+	var outputFile string
 	flag.StringVar(&configFile, "config", "", "config file")
+	flag.StringVar(&outputFile, "output", "", "output file")
 	flag.Parse()
 
 	if configFile == "" {
 		ml.Error(errors.New("must specify a config file"), "error reading config file")
 		os.Exit(1)
+	}
+
+	var outputFileW *os.File
+
+	if outputFile != "" {
+		dir, _ := filepath.Split(outputFile)
+
+		if dir != "" {
+			err := os.MkdirAll(dir, 0755)
+			if err != nil {
+				ml.Error(err, "error trying to create output folder")
+				os.Exit(1)
+			}
+		}
+
+		outputFileW, err = os.OpenFile(outputFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+		if err != nil {
+			ml.Error(err, "error trying to create output file")
+			os.Exit(1)
+		}
+		defer outputFileW.Close()
 	}
 
 	handle, err := os.Open(configFile)
@@ -72,5 +96,14 @@ func main() {
 	if err != nil {
 		ml.Error(err, "error rendering conversation")
 		os.Exit(1)
+	}
+
+	if outputFile != "" {
+		tr := internal.NewTableRenderer(cr.Conversation, outputFileW)
+		err = tr.Render()
+		if err != nil {
+			ml.Error(err, "error rendering the conversation to the output file")
+			os.Exit(1)
+		}
 	}
 }

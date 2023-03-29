@@ -1,3 +1,4 @@
-.env
-config.yaml
-chait
+/.env
+/config.yaml
+/chait
+/output
