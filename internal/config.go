@@ -9,9 +9,9 @@ import (
 
 type Config struct {
 	Chait struct {
-		Rol1    string `yaml:"rol1"`
-		Rol2    string `yaml:"rol2"`
-		Replies int    `yaml:"replies"`
+		RoleU1     string `yaml:"roleU1"`
+		RoleU2     string `yaml:"roleU2"`
+		Iterations int    `yaml:"iterations"`
 	} `yaml:"chait"`
 }
 
@@ -24,16 +24,16 @@ func NewConfig(handle io.Reader) (*Config, error) {
 		return nil, errors.New("error decoding yaml")
 	}
 
-	if config.Chait.Replies <= 0 {
-		return nil, errors.New("replies must be > 0")
+	if config.Chait.Iterations <= 0 {
+		return nil, errors.New("iterations must be > 0")
 	}
 
-	if config.Chait.Rol1 == "" {
-		return nil, errors.New("rol1 required")
+	if config.Chait.RoleU1 == "" {
+		return nil, errors.New("roleU1 required")
 	}
 
-	if config.Chait.Rol2 == "" {
-		return nil, errors.New("rol2 required")
+	if config.Chait.RoleU2 == "" {
+		return nil, errors.New("roleU2 required")
 	}
 
 	return config, nil

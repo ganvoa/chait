@@ -10,24 +10,28 @@ import (
 type TableRenderer struct {
 	writer       io.Writer
 	conversation []ChatMessage
+	config       *Config
 }
 
-func NewTableRenderer(c []ChatMessage, w io.Writer) *TableRenderer {
-	return &TableRenderer{conversation: c, writer: w}
+func NewTableRenderer(c []ChatMessage, config *Config, w io.Writer) *TableRenderer {
+	return &TableRenderer{conversation: c, writer: w, config: config}
 }
 
 func (cr *TableRenderer) Render() error {
+	rowConfigAutoMerge := table.RowConfig{AutoMerge: true}
 	tw := table.NewWriter()
-	tw.SetTitle("Conversation")
-	tw.AppendHeader(table.Row{"User", "Message"})
 	tw.SetStyle(table.StyleLight)
 	tw.Style().Options.SeparateRows = true
+	tw.SetTitle("Conversation")
+	tw.SetCaption("roleU1: %s\nroleU2: %s\niterations: %d\n", cr.config.Chait.RoleU1, cr.config.Chait.RoleU2, cr.config.Chait.Iterations)
+	tw.AppendSeparator()
+	tw.AppendHeader(table.Row{"User", "Message"}, rowConfigAutoMerge)
 	tw.SetColumnConfigs([]table.ColumnConfig{
-		{Name: "User", WidthMin: 6, WidthMax: 6, Align: text.AlignCenter},
-		{Name: "Message", WidthMin: 60, WidthMax: 60},
+		{Name: "User", WidthMin: 10, WidthMax: 10, Align: text.AlignCenter},
+		{Name: "Message", WidthMin: 80, WidthMax: 80},
 	})
 	for _, v := range cr.conversation {
-		tw.AppendRow(table.Row{v.Name, v.Message})
+		tw.AppendRow(table.Row{v.Name, v.Message}, rowConfigAutoMerge)
 	}
 
 	render := tw.Render()

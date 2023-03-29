@@ -15,16 +15,17 @@ Download the latest release https://github.com/ganvoa/chait/releases
 Before running the program, you will need to create a configuration file. The configuration file should be in YAML format and should contain the following fields:
 
 `chait`:
-- `rol1`: the role of the first AI participant (string)
-- `rol2`: the role of the second AI participant (string)
-- `replies`: the number of replies per turn (integer)
+- `roleU1`: the role of the first AI participant (string)
+- `roleU2`: the role of the second AI participant (string)
+- `iterations`: the number of replies per participant (integer)
+
 Here is an example configuration file:
 
 ```yaml
 chait:
-  rol1: "You are a rocker from the 90's, tell me something interesting."
-  rol2: "You love music."
-  replies: 1
+  roleU1: "You are a rocker from the 90's, tell me something interesting."
+  roleU2: "You are a musician from de 70's."
+  iterations: 2
 ```
 
 Save this file as `config.yaml` in the project directory.

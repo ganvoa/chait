@@ -14,14 +14,14 @@ func Test_ReadConfigFile(t *testing.T) {
 
 		testConfig := `
 chait:
-  rol1: "You are a dinasour"
-  rol2: "You are a vegetable"
-  replies: 3`
+  roleU1: "You are a dinasour"
+  roleU2: "You are a vegetable"
+  iterations: 3`
 
 		expectedConfig := &internal.Config{}
-		expectedConfig.Chait.Replies = 3
-		expectedConfig.Chait.Rol1 = "You are a dinasour"
-		expectedConfig.Chait.Rol2 = "You are a vegetable"
+		expectedConfig.Chait.Iterations = 3
+		expectedConfig.Chait.RoleU1 = "You are a dinasour"
+		expectedConfig.Chait.RoleU2 = "You are a vegetable"
 
 		conf, err := internal.NewConfig(strings.NewReader(testConfig))
 		if err != nil {
@@ -31,43 +31,43 @@ chait:
 		assert.Equal(t, expectedConfig, conf)
 	})
 
-	t.Run("Replies > 0", func(t *testing.T) {
+	t.Run("iterations > 0", func(t *testing.T) {
 
 		testConfig := `
 chait:
-  rol1: "You are a dinasour"
-  rol2: "You are a vegetable"
+  roleU1: "You are a dinasour"
+  roleU2: "You are a vegetable"
 `
 		_, err := internal.NewConfig(strings.NewReader(testConfig))
-		assert.EqualError(t, err, "replies must be > 0")
+		assert.EqualError(t, err, "iterations must be > 0")
 	})
 
 	t.Run("Rol1 required", func(t *testing.T) {
 
 		testConfig := `
 chait:
-  rol2: "You are a vegetable"
-  replies: 3
+  roleU2: "You are a vegetable"
+  iterations: 3
 `
 		_, err := internal.NewConfig(strings.NewReader(testConfig))
-		assert.EqualError(t, err, "rol1 required")
+		assert.EqualError(t, err, "roleU1 required")
 	})
 
-	t.Run("Rol2 required", func(t *testing.T) {
+	t.Run("RoleU2 required", func(t *testing.T) {
 
 		testConfig := `
 chait:
-  rol1: "You are a dinasour"
-  replies: 3
+  roleU1: "You are a dinasour"
+  iterations: 3
 `
 		_, err := internal.NewConfig(strings.NewReader(testConfig))
-		assert.EqualError(t, err, "rol2 required")
+		assert.EqualError(t, err, "roleU2 required")
 	})
 
 	t.Run("Invalid File", func(t *testing.T) {
 
 		testConfig := `
-chait:  rol1: "You are a dinasour"replies: 3
+chait:  roleU1: "You are a dinasour"iterations: 3
 `
 		_, err := internal.NewConfig(strings.NewReader(testConfig))
 		assert.EqualError(t, err, "error decoding yaml")

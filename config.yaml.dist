@@ -1,4 +1,4 @@
 chait:
-  rol1: "You are a rocker form the 90's, tell me something interesting."
-  rol2: "you love music."
-  replies: 1
+  roleU1: "You are a rocker from the 90's, tell me something interesting."
+  roleU2: "You are a musician from de 70's."
+  iterations: 2

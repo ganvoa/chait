@@ -72,11 +72,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	p1 := internal.NewAiParticipant("U1", config.Chait.Rol1, apiKey, l.WithName("U1"))
-	p2 := internal.NewAiParticipant("U2", config.Chait.Rol2, apiKey, l.WithName("U2"))
+	p1 := internal.NewAiParticipant("U1", config.Chait.RoleU1, apiKey, l.WithName("U1"))
+	p2 := internal.NewAiParticipant("U2", config.Chait.RoleU2, apiKey, l.WithName("U2"))
 
-	ml.Info("init new chat room", "replies", config.Chait.Replies)
-	cr, err := internal.NewChatRoom(config.Chait.Replies, p1, p2)
+	ml.Info("init new chat room", "iterations", config.Chait.Iterations)
+	cr, err := internal.NewChatRoom(config.Chait.Iterations, p1, p2)
 	if err != nil {
 		ml.Error(err, "error initializing chat room")
 		os.Exit(1)
@@ -91,7 +91,7 @@ func main() {
 
 	ml.Info("finished conversation")
 
-	tr := internal.NewTableRenderer(cr.Conversation, os.Stdout)
+	tr := internal.NewTableRenderer(cr.Conversation, config, os.Stdout)
 	err = tr.Render()
 	if err != nil {
 		ml.Error(err, "error rendering conversation")
@@ -99,7 +99,7 @@ func main() {
 	}
 
 	if outputFile != "" {
-		tr := internal.NewTableRenderer(cr.Conversation, outputFileW)
+		tr := internal.NewTableRenderer(cr.Conversation, config, outputFileW)
 		err = tr.Render()
 		if err != nil {
 			ml.Error(err, "error rendering the conversation to the output file")
