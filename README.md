@@ -3,7 +3,7 @@
 Create a chatroom where two AI are placed to generate a conversation between them. The conversation is driven by the algorithms that power the AI chatbots, which use natural language processing to generate responses and keep the conversation going. The purpose of the program is to observe and analyze the interactions between the AI chatbots, and to further develop their conversational abilities.
 
 ## Prerequisites
-To run this program, you will need to have the following installed on your system:
+To run this program, you will need to have the following:
 
 - An API key for the OpenAI API ([You can obtain one here](https://platform.openai.com/account/api-keys))
 
@@ -22,8 +22,8 @@ Here is an example configuration file:
 
 ```yaml
 chait:
-  rol1: "You are a rocker form the 90's, tell me something interesting."
-  rol2: "you love music."
+  rol1: "You are a rocker from the 90's, tell me something interesting."
+  rol2: "You love music."
   replies: 1
 ```
 
@@ -33,8 +33,10 @@ Save this file as `config.yaml` in the project directory.
 To run the program, use the following command:
 
 ```bash
+# set your api key
 export OPENAI_API_KEY=sk-YOUR-API-KEY 
-./chait -config config.yaml
+
+./chait --config config.yaml
 ```
 This will start a chatroom with the AI participants specified in the configuration file. 
 
@@ -43,8 +45,15 @@ This will start a chatroom with the AI participants specified in the configurati
 
 The conversation will be logged to the console, and a table summarizing the conversation will be printed at the end.
 
+You can export the output to a file with the `--output` flag
 
-### Example
+
+```bash
+./chait --config config.yaml --output output.txt
+```
+
+
+### Ouput Example
 ```text
 ┌───────────────────────────────────────────────────────────────────────┐
 │ Conversation                                                          │

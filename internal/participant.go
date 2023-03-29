@@ -90,7 +90,7 @@ func (p *AIParticipant) Reply(cm *ChatMessage) (*ChatMessage, error) {
 		Content: message,
 	})
 
-	p.logger.Info("message received Talk CreateChatCompletion", "total_tokens", resp.Usage.TotalTokens, "finish_reason", resp.Choices[0].FinishReason)
+	p.logger.Info("message received Reply CreateChatCompletion", "total_tokens", resp.Usage.TotalTokens, "finish_reason", resp.Choices[0].FinishReason)
 
 	return &ChatMessage{p.Name, message}, nil
 }
